@@ -10,7 +10,7 @@ int main(void)
     insert_front(&head, 4);
 
     print_all_nodes(head);
-#if 0
+#if 1
     fprintf(stderr, "after delete node(2)\n");
     delete_node(&head, 2);
     print_all_nodes(head);

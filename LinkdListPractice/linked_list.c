@@ -8,42 +8,63 @@ int insert_front(node_t** head, int value)
 {
     node_t** pp = head;
     node_t* new_node;
-    node_t* temp;
+
     new_node = malloc(sizeof(node_t));
+    if (new_node == NULL) {
+        fprintf(stderr, "IN insert_front() malloc is fail\n");
+        return FALSE;
+    }
     new_node->value = value;
-    temp = *pp;
+    new_node->next = *pp;
     *pp = new_node;
-    new_node->next = temp;
     return TRUE;
 }
 
 int delete_node(node_t** head, int value)
 {
-
+    node_t** pp = head;
+    int is_delete = FALSE;
+    while (*pp != NULL) {
+        if ((*pp)->value == value) {
+            node_t* temp = *pp;
+            *pp = (*pp)->next;
+            free(temp);
+            is_delete = TRUE;
+            break;
+        }
+        pp = &(*pp)->next;
+    }
+    return is_delete;
 }
 void print_all_nodes(node_t* head)
 {
     node_t* p = head;
     size_t i = 0;
     while (p != NULL) {
-        fprintf(stderr, "[%d]th node value [%d]\n", ++i, p->value);
+        fprintf(stderr, "[%d]th node value [%d]\n",  ++i, p->value);
         p = p->next;
     }
 
 }
 int search_node(node_t* head, int value)
 {
-
+    node_t* p = head;
+    while (p != NULL) {
+        if (p->value == value) {
+            return TRUE;
+        }
+        p = p->next;
+    }
+    return FALSE;
 }
 void destory_linked_list(node_t* head)
 {
     node_t* p = head;
-    size_t i = 0;
     while (p != NULL) {
         node_t* next = p->next;
         free(p);
         p = next;
     }
-    fprintf(stderr, "SUCESS destory!\n");
+    fprintf(stderr, "IN destory_linked_list() delete SUCESS\n");
 
 }
