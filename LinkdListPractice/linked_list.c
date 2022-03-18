@@ -1,41 +1,72 @@
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
 #include "linked_list.h"
 
-int insert_front(node_t** head, int value)
+void insert_front(node_t** head, int value)
 {
     node_t** pp = head;
     node_t* new_node;
 
     new_node = malloc(sizeof(node_t));
-    if (new_node == NULL) {
-        fprintf(stderr, "IN insert_front() malloc is fail\n");
-        return FALSE;
-    }
+    assert(new_node != NULL);
     new_node->value = value;
     new_node->next = *pp;
     *pp = new_node;
-    return TRUE;
+}
+
+void insert_ordered_acending(node_t** head, int value)
+{
+    node_t** pp = head;
+    node_t* new_node;
+    new_node = malloc(sizeof(node_t));
+    assert(new_node != NULL);
+    new_node->value = value;
+    while(*pp != NULL) {
+        if ((*pp)->value >= value) {
+            break;
+        }
+        pp = &(*pp)->next;
+    }
+    new_node->next = *pp;
+    *pp = new_node;
+}
+
+void insert_ordered_decending(node_t** head, int value)
+{
+    node_t** pp = head;
+    node_t* new_node;
+    new_node = malloc(sizeof(node_t));
+    assert(new_node != NULL);
+    new_node->value = value;
+    while(*pp != NULL) {
+        if ((*pp)->value <= value) {
+            break;
+        }
+        pp = &(*pp)->next;
+    }
+    new_node->next = *pp;
+    *pp = new_node;    
 }
 
 int delete_node(node_t** head, int value)
 {
     node_t** pp = head;
-    int is_delete = FALSE;
-    while (*pp != NULL) {
+    while(*pp != NULL) {
         if ((*pp)->value == value) {
-            node_t* temp = *pp;
+            node_t* delete_node = *pp;
             *pp = (*pp)->next;
-            free(temp);
-            is_delete = TRUE;
-            break;
+            free(delete_node);
+            return TRUE;
         }
+
         pp = &(*pp)->next;
     }
-    return is_delete;
+    return FALSE;
 }
+
 void print_all_nodes(node_t* head)
 {
     node_t* p = head;
@@ -46,6 +77,7 @@ void print_all_nodes(node_t* head)
     }
 
 }
+
 int search_node(node_t* head, int value)
 {
     node_t* p = head;
@@ -57,6 +89,7 @@ int search_node(node_t* head, int value)
     }
     return FALSE;
 }
+
 void destory_linked_list(node_t* head)
 {
     node_t* p = head;

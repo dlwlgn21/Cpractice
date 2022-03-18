@@ -4,10 +4,12 @@
 int main(void)
 {
     node_t* head = NULL;
-    insert_front(&head, 1);
-    insert_front(&head, 2);
-    insert_front(&head, 3);
-    insert_front(&head, 4);
+    insert_ordered_decending(&head, 4);
+    insert_ordered_decending(&head, 1);
+    insert_ordered_decending(&head, 3);
+    insert_ordered_decending(&head, 2);
+    insert_ordered_decending(&head, 5);
+
 
     print_all_nodes(head);
 #if 1
