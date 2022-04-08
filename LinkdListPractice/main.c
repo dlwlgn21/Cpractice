@@ -4,11 +4,11 @@
 int main(void)
 {
     node_t* head = NULL;
-    insert_ordered_decending(&head, 4);
-    insert_ordered_decending(&head, 1);
-    insert_ordered_decending(&head, 3);
-    insert_ordered_decending(&head, 2);
-    insert_ordered_decending(&head, 5);
+    insert_ordered_acending(&head, 4);
+    insert_ordered_acending(&head, 1);
+    insert_ordered_acending(&head, 3);
+    insert_ordered_acending(&head, 2);
+    insert_ordered_acending(&head, 5);
 
 
     print_all_nodes(head);
@@ -19,6 +19,7 @@ int main(void)
 
     delete_node(&head, 2);
     fprintf(stderr, "after delete again node(2)\n");
+    print_all_nodes(head);
 
     delete_node(&head, 3);
     fprintf(stderr, "after delete node(3)\n");

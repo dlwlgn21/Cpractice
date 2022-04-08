@@ -15,6 +15,7 @@ void insert_front(node_t** head, int value)
     new_node->value = value;
     new_node->next = *pp;
     *pp = new_node;
+
 }
 
 void insert_ordered_acending(node_t** head, int value)
@@ -24,14 +25,18 @@ void insert_ordered_acending(node_t** head, int value)
     new_node = malloc(sizeof(node_t));
     assert(new_node != NULL);
     new_node->value = value;
-    while(*pp != NULL) {
+
+    while (*pp != NULL) {
         if ((*pp)->value >= value) {
             break;
         }
         pp = &(*pp)->next;
     }
+
+    /* 연결 시켜줌 */
     new_node->next = *pp;
     *pp = new_node;
+
 }
 
 void insert_ordered_decending(node_t** head, int value)
@@ -41,27 +46,29 @@ void insert_ordered_decending(node_t** head, int value)
     new_node = malloc(sizeof(node_t));
     assert(new_node != NULL);
     new_node->value = value;
-    while(*pp != NULL) {
+
+    while (*pp != NULL) {
         if ((*pp)->value <= value) {
             break;
         }
         pp = &(*pp)->next;
     }
+
+    /* 연결 시켜줌 */
     new_node->next = *pp;
-    *pp = new_node;    
+    *pp = new_node;
 }
 
 int delete_node(node_t** head, int value)
 {
     node_t** pp = head;
-    while(*pp != NULL) {
+    while (*pp != NULL) {
         if ((*pp)->value == value) {
-            node_t* delete_node = *pp;
-            *pp = (*pp)->next;
-            free(delete_node);
+            node_t* temp = *pp;
+            *pp = (*pp)->next; 
+            free(temp);
             return TRUE;
         }
-
         pp = &(*pp)->next;
     }
     return FALSE;
